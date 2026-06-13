@@ -640,3 +640,10 @@ This project demonstrates data cleaning, Excel analysis, SQL querying, Power BI 
 
 Completed.
 
+## Author
+
+**Shubham Kumar Dubey**
+
+Aspiring Data Analyst skilled in Excel, SQL, Power BI, Power Query, DAX, and dashboard reporting.
+
+GitHub: `shubham-dubee`
