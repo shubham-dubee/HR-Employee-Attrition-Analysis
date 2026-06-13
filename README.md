@@ -2,21 +2,24 @@
 
 ## Project Overview
 
-This project analyzes employee attrition using **Excel** and **SQL**.
+This project analyzes employee attrition data to identify the key factors contributing to employee turnover. The analysis was completed using Microsoft Excel, SQL, Google Colab, and Power BI.
 
-The main objective is to identify which employee groups have higher attrition rates and understand possible factors related to employee turnover.
+The project includes Excel-based analysis, SQL querying, Power BI data modeling, DAX measure creation, dashboard building, and business recommendations.
 
-The analysis focuses on:
+## Business Problem
 
-* Department
-* Job Role
-* OverTime
-* Age Group
-* Marital Status
-* Gender
-* Monthly Income
+Employee attrition can increase recruitment costs, reduce productivity, and create operational challenges. The objective of this project is to identify which employee groups have higher attrition and what factors may be contributing to employee turnover.
 
----
+## Tools Used
+
+* Microsoft Excel
+* SQL
+* SQLite
+* Google Colab
+* Power BI Desktop
+* Power Query
+* DAX
+* GitHub
 
 ## Dataset Overview
 
@@ -29,7 +32,7 @@ The dataset contains employee-level HR information.
 | Active Employees       |  1,233 |
 | Overall Attrition Rate | 16.12% |
 
-### Key Columns Used
+## Key Columns Used
 
 * Age
 * Attrition
@@ -37,86 +40,33 @@ The dataset contains employee-level HR information.
 * JobRole
 * Gender
 * MaritalStatus
-* MonthlyIncome
 * OverTime
+* MonthlyIncome
+* JobSatisfaction
+* WorkLifeBalance
+* YearsAtCompany
+* TotalWorkingYears
 * EmployeeNumber
 
----
+## Excel Analysis
 
-## Tools Used
+Excel was used for initial data analysis, validation, and dashboard creation.
 
-* Microsoft Excel
-* Pivot Tables
-* Excel Charts
-* SQL
-* SQLite
-* Google Colab
+### Excel Work Completed
 
----
+* Cleaned and reviewed the HR dataset
+* Created Pivot Tables for attrition analysis
+* Built KPI cards for total employees, active employees, employees left, and attrition rate
+* Created charts for attrition by department, job role, overtime, age group, marital status, and gender
+* Created an Excel dashboard to summarize HR attrition insights
 
-## Business Questions
+## SQL Analysis
 
-1. What is the overall employee attrition rate?
-2. Which department has the highest attrition rate?
-3. Which job role has the highest attrition rate?
-4. Are employees working overtime more likely to leave?
-5. Which age group has the highest attrition?
-6. Does marital status affect attrition?
-7. Is attrition different between male and female employees?
-8. Which job roles have high attrition and low average income?
+SQL was used to validate Excel results and perform deeper analysis on employee attrition patterns. The SQL analysis was completed using SQLite in Google Colab.
 
----
+## SQL Queries Used
 
-# Excel Dashboard
-
-The Excel dashboard was created using Pivot Tables and charts.
-
-## Dashboard KPIs
-
-| KPI              |  Value |
-| ---------------- | -----: |
-| Total Employees  |  1,470 |
-| Employees Left   |    237 |
-| Active Employees |  1,233 |
-| Attrition Rate   | 16.12% |
-
-## Dashboard Charts
-
-* Attrition Rate by Department
-* Attrition Rate by Job Role
-* Attrition Rate by OverTime
-* Attrition Rate by Age Group
-* Attrition Rate by Marital Status
-* Attrition Rate by Gender
-
----
-
-# SQL Analysis
-
-SQL analysis was performed using **SQLite in Google Colab**.
-
-Table name used:
-
-```sql
-hr
-```
-
-The main SQL techniques used were:
-
-* GROUP BY
-* CASE WHEN
-* COUNT()
-* SUM()
-* AVG()
-* ROUND()
-* CTEs
-* RANK() window function
-
----
-
-## 1. Overall Attrition Count
-
-### SQL Query
+### 1. Overall Attrition Count
 
 ```sql
 SELECT
@@ -133,15 +83,9 @@ GROUP BY Attrition;
 | No        |          1,233 |
 | Yes       |            237 |
 
-### Insight
-
-The company has an overall attrition rate of **16.12%**.
-
 ---
 
-## 2. Attrition Rate by Department
-
-### SQL Query
+### 2. Attrition Rate by Department
 
 ```sql
 SELECT
@@ -165,17 +109,9 @@ ORDER BY Attrition_Rate DESC;
 | Human Resources        |              63 |             12 |         19.05% |
 | Research & Development |             961 |            133 |         13.84% |
 
-### Insight
-
-The **Sales department** has the highest attrition rate at **20.63%**.
-
-Although Research & Development has the highest number of employees leaving, Sales has the highest attrition rate because department sizes are different.
-
 ---
 
-## 3. Attrition Rate by Job Role
-
-### SQL Query
+### 3. Attrition Rate by Job Role
 
 ```sql
 SELECT
@@ -193,25 +129,21 @@ ORDER BY Attrition_Rate DESC;
 
 ### Result
 
-| Job Role              | Total Employees | Employees Left | Attrition Rate |
-| --------------------- | --------------: | -------------: | -------------: |
-| Sales Representative  |              83 |             33 |         39.76% |
-| Laboratory Technician |             259 |             62 |         23.94% |
-| Human Resources       |              52 |             12 |         23.08% |
-| Sales Executive       |             326 |             57 |         17.48% |
-| Research Scientist    |             292 |             47 |         16.10% |
-
-### Insight
-
-**Sales Representative** has the highest attrition rate at **39.76%**.
-
-This means almost 4 out of every 10 Sales Representatives left the company.
+| JobRole                   | Total Employees | Employees Left | Attrition Rate |
+| ------------------------- | --------------: | -------------: | -------------: |
+| Sales Representative      |              83 |             33 |         39.76% |
+| Laboratory Technician     |             259 |             62 |         23.94% |
+| Human Resources           |              52 |             12 |         23.08% |
+| Sales Executive           |             326 |             57 |         17.48% |
+| Research Scientist        |             292 |             47 |         16.10% |
+| Manufacturing Director    |             145 |             10 |          6.90% |
+| Healthcare Representative |             131 |              9 |          6.87% |
+| Manager                   |             102 |              5 |          4.90% |
+| Research Director         |              80 |              2 |          2.50% |
 
 ---
 
-## 4. Attrition Rate by OverTime
-
-### SQL Query
+### 4. Attrition Rate by OverTime
 
 ```sql
 SELECT
@@ -234,17 +166,9 @@ ORDER BY Attrition_Rate DESC;
 | Yes      |             416 |            127 |         30.53% |
 | No       |           1,054 |            110 |         10.44% |
 
-### Insight
-
-Employees working overtime have an attrition rate of **30.53%**, while employees not working overtime have an attrition rate of **10.44%**.
-
-This shows that employees working overtime leave at almost **three times higher rate**.
-
 ---
 
-## 5. Attrition Rate by Age Group
-
-### SQL Query
+### 5. Attrition Rate by Age Group
 
 ```sql
 SELECT
@@ -265,7 +189,9 @@ SELECT
     ) AS Attrition_Rate
 
 FROM hr
+
 GROUP BY Age_Group
+
 ORDER BY Attrition_Rate DESC;
 ```
 
@@ -278,17 +204,9 @@ ORDER BY Attrition_Rate DESC;
 | 50+       |             143 |             18 |         12.59% |
 | 41-50     |             322 |             34 |         10.56% |
 
-### Insight
-
-Employees **under 30** have the highest attrition rate at **27.91%**.
-
-This suggests younger employees may be more likely to leave the company.
-
 ---
 
-## 6. Attrition Rate by Marital Status
-
-### SQL Query
+### 6. Attrition Rate by Marital Status
 
 ```sql
 SELECT
@@ -306,54 +224,15 @@ ORDER BY Attrition_Rate DESC;
 
 ### Result
 
-| Marital Status | Total Employees | Employees Left | Attrition Rate |
-| -------------- | --------------: | -------------: | -------------: |
-| Single         |             470 |            120 |         25.53% |
-| Married        |             673 |             84 |         12.48% |
-| Divorced       |             327 |             33 |         10.09% |
-
-### Insight
-
-Single employees have the highest attrition rate at **25.53%**.
+| MaritalStatus | Total Employees | Employees Left | Attrition Rate |
+| ------------- | --------------: | -------------: | -------------: |
+| Single        |             470 |            120 |         25.53% |
+| Married       |             673 |             84 |         12.48% |
+| Divorced      |             327 |             33 |         10.09% |
 
 ---
 
-## 7. Attrition Rate by Gender
-
-### SQL Query
-
-```sql
-SELECT
-    Gender,
-    COUNT(*) AS Total_Employees,
-    SUM(CASE WHEN Attrition = 'Yes' THEN 1 ELSE 0 END) AS Employees_Left,
-    ROUND(
-        SUM(CASE WHEN Attrition = 'Yes' THEN 1 ELSE 0 END) * 100.0 / COUNT(*),
-        2
-    ) AS Attrition_Rate
-FROM hr
-GROUP BY Gender
-ORDER BY Attrition_Rate DESC;
-```
-
-### Result
-
-| Gender | Total Employees | Employees Left | Attrition Rate |
-| ------ | --------------: | -------------: | -------------: |
-| Male   |             882 |            150 |         17.01% |
-| Female |             588 |             87 |         14.80% |
-
-### Insight
-
-Male employees have a slightly higher attrition rate than female employees.
-
-However, the difference is not very large, so gender does not appear to be the strongest attrition driver.
-
----
-
-## 8. Job Role Attrition Ranking
-
-### SQL Query
+### 7. Job Role Attrition Ranking Using CTE and RANK()
 
 ```sql
 WITH jobrole_attrition AS
@@ -383,25 +262,46 @@ FROM jobrole_attrition;
 
 ### Result
 
-| Attrition Rank | Job Role              | Attrition Rate |
-| -------------: | --------------------- | -------------: |
-|              1 | Sales Representative  |         39.76% |
-|              2 | Laboratory Technician |         23.94% |
-|              3 | Human Resources       |         23.08% |
-|              4 | Sales Executive       |         17.48% |
-|              5 | Research Scientist    |         16.10% |
-
-### Insight
-
-Sales Representative ranked first for attrition risk.
-
-This query uses a CTE and the `RANK()` window function.
+| JobRole                   | Total Employees | Employees Left | Attrition Rate | Attrition Rank |
+| ------------------------- | --------------: | -------------: | -------------: | -------------: |
+| Sales Representative      |              83 |             33 |         39.76% |              1 |
+| Laboratory Technician     |             259 |             62 |         23.94% |              2 |
+| Human Resources           |              52 |             12 |         23.08% |              3 |
+| Sales Executive           |             326 |             57 |         17.48% |              4 |
+| Research Scientist        |             292 |             47 |         16.10% |              5 |
+| Manufacturing Director    |             145 |             10 |          6.90% |              6 |
+| Healthcare Representative |             131 |              9 |          6.87% |              7 |
+| Manager                   |             102 |              5 |          4.90% |              8 |
+| Research Director         |              80 |              2 |          2.50% |              9 |
 
 ---
 
-## 9. Department Attrition Ranking
+### 8. Attrition Rate by Gender
 
-### SQL Query
+```sql
+SELECT
+    Gender,
+    COUNT(*) AS Total_Employees,
+    SUM(CASE WHEN Attrition = 'Yes' THEN 1 ELSE 0 END) AS Employees_Left,
+    ROUND(
+        SUM(CASE WHEN Attrition = 'Yes' THEN 1 ELSE 0 END) * 100.0 / COUNT(*),
+        2
+    ) AS Attrition_Rate
+FROM hr
+GROUP BY Gender
+ORDER BY Attrition_Rate DESC;
+```
+
+### Result
+
+| Gender | Total Employees | Employees Left | Attrition Rate |
+| ------ | --------------: | -------------: | -------------: |
+| Male   |             882 |            150 |         17.01% |
+| Female |             588 |             87 |         14.80% |
+
+---
+
+### 9. Department Attrition Ranking Using CTE and RANK()
 
 ```sql
 WITH department_attrition AS
@@ -431,21 +331,15 @@ FROM department_attrition;
 
 ### Result
 
-| Department Rank | Department             | Attrition Rate |
-| --------------: | ---------------------- | -------------: |
-|               1 | Sales                  |         20.63% |
-|               2 | Human Resources        |         19.05% |
-|               3 | Research & Development |         13.84% |
-
-### Insight
-
-Sales ranked first among departments for attrition risk.
+| Department             | Total Employees | Employees Left | Attrition Rate | Department Rank |
+| ---------------------- | --------------: | -------------: | -------------: | --------------: |
+| Sales                  |             446 |             92 |         20.63% |               1 |
+| Human Resources        |              63 |             12 |         19.05% |               2 |
+| Research & Development |             961 |            133 |         13.84% |               3 |
 
 ---
 
-## 10. Top 10 Highest Paid Employees
-
-### SQL Query
+### 10. Top 10 Highest Paid Employees Using RANK()
 
 ```sql
 SELECT
@@ -461,15 +355,24 @@ ORDER BY Income_Rank
 LIMIT 10;
 ```
 
-### Insight
+### Result
 
-The highest-paid employees are mainly Managers and Research Directors, which are senior-level roles.
+| EmployeeNumber | JobRole           | Department             | MonthlyIncome | Income Rank |
+| -------------: | ----------------- | ---------------------- | ------------: | ----------: |
+|            259 | Manager           | Research & Development |        19,999 |           1 |
+|           1035 | Research Director | Research & Development |        19,973 |           2 |
+|           1191 | Manager           | Research & Development |        19,943 |           3 |
+|            226 | Manager           | Research & Development |        19,926 |           4 |
+|            787 | Manager           | Research & Development |        19,859 |           5 |
+|           1282 | Manager           | Sales                  |        19,847 |           6 |
+|           1038 | Manager           | Sales                  |        19,845 |           7 |
+|           1740 | Manager           | Sales                  |        19,833 |           8 |
+|           1255 | Research Director | Research & Development |        19,740 |           9 |
+|           1338 | Manager           | Human Resources        |        19,717 |          10 |
 
 ---
 
-## 11. Average Monthly Income by Job Role
-
-### SQL Query
+### 11. Average Monthly Income by Job Role
 
 ```sql
 SELECT
@@ -483,26 +386,21 @@ ORDER BY Avg_Monthly_Income DESC;
 
 ### Result
 
-| Job Role                  | Total Employees | Avg Monthly Income |
-| ------------------------- | --------------: | -----------------: |
-| Manager                   |             102 |          17,181.68 |
-| Research Director         |              80 |          16,033.55 |
-| Healthcare Representative |             131 |           7,528.76 |
-| Manufacturing Director    |             145 |           7,295.14 |
-| Sales Executive           |             326 |           6,924.28 |
-| Sales Representative      |              83 |           2,626.00 |
-
-### Insight
-
-Managers and Research Directors have the highest average monthly income.
-
-Sales Representatives have the lowest average monthly income.
+| JobRole                   | Total Employees | Average Monthly Income |
+| ------------------------- | --------------: | ---------------------: |
+| Manager                   |             102 |              17,181.68 |
+| Research Director         |              80 |              16,033.55 |
+| Healthcare Representative |             131 |               7,528.76 |
+| Manufacturing Director    |             145 |               7,295.14 |
+| Sales Executive           |             326 |               6,924.28 |
+| Human Resources           |              52 |               4,235.75 |
+| Research Scientist        |             292 |               3,239.97 |
+| Laboratory Technician     |             259 |               3,237.17 |
+| Sales Representative      |              83 |               2,626.00 |
 
 ---
 
-## 12. Salary Ranking by Job Role
-
-### SQL Query
+### 12. Salary Ranking by Job Role Using CTE and RANK()
 
 ```sql
 WITH jobrole_salary AS
@@ -527,24 +425,21 @@ FROM jobrole_salary;
 
 ### Result
 
-| Salary Rank | Job Role                  | Avg Monthly Income |
-| ----------: | ------------------------- | -----------------: |
-|           1 | Manager                   |          17,181.68 |
-|           2 | Research Director         |          16,033.55 |
-|           3 | Healthcare Representative |           7,528.76 |
-|           4 | Manufacturing Director    |           7,295.14 |
-|           5 | Sales Executive           |           6,924.28 |
-|           9 | Sales Representative      |           2,626.00 |
-
-### Insight
-
-Sales Representative ranks last in average monthly income among all job roles.
+| JobRole                   | Total Employees | Average Monthly Income | Salary Rank |
+| ------------------------- | --------------: | ---------------------: | ----------: |
+| Manager                   |             102 |              17,181.68 |           1 |
+| Research Director         |              80 |              16,033.55 |           2 |
+| Healthcare Representative |             131 |               7,528.76 |           3 |
+| Manufacturing Director    |             145 |               7,295.14 |           4 |
+| Sales Executive           |             326 |               6,924.28 |           5 |
+| Human Resources           |              52 |               4,235.75 |           6 |
+| Research Scientist        |             292 |               3,239.97 |           7 |
+| Laboratory Technician     |             259 |               3,237.17 |           8 |
+| Sales Representative      |              83 |               2,626.00 |           9 |
 
 ---
 
-## 13. Combined Attrition and Salary Analysis
-
-### SQL Query
+### 13. Combined Salary and Attrition Analysis Using CTE and RANK()
 
 ```sql
 WITH jobrole_summary AS
@@ -580,78 +475,168 @@ ORDER BY Attrition_Rank;
 
 ### Result
 
-| Job Role              | Attrition Rate | Avg Monthly Income | Attrition Rank | Salary Rank |
-| --------------------- | -------------: | -----------------: | -------------: | ----------: |
-| Sales Representative  |         39.76% |           2,626.00 |              1 |           9 |
-| Laboratory Technician |         23.94% |           3,237.17 |              2 |           8 |
-| Human Resources       |         23.08% |           4,235.75 |              3 |           6 |
-| Manager               |          4.90% |          17,181.68 |              8 |           1 |
-| Research Director     |          2.50% |          16,033.55 |              9 |           2 |
+| JobRole                   | Total Employees | Employees Left | Attrition Rate | Average Monthly Income | Attrition Rank | Salary Rank |
+| ------------------------- | --------------: | -------------: | -------------: | ---------------------: | -------------: | ----------: |
+| Sales Representative      |              83 |             33 |         39.76% |               2,626.00 |              1 |           9 |
+| Laboratory Technician     |             259 |             62 |         23.94% |               3,237.17 |              2 |           8 |
+| Human Resources           |              52 |             12 |         23.08% |               4,235.75 |              3 |           6 |
+| Sales Executive           |             326 |             57 |         17.48% |               6,924.28 |              4 |           5 |
+| Research Scientist        |             292 |             47 |         16.10% |               3,239.97 |              5 |           7 |
+| Manufacturing Director    |             145 |             10 |          6.90% |               7,295.14 |              6 |           4 |
+| Healthcare Representative |             131 |              9 |          6.87% |               7,528.76 |              7 |           3 |
+| Manager                   |             102 |              5 |          4.90% |              17,181.68 |              8 |           1 |
+| Research Director         |              80 |              2 |          2.50% |              16,033.55 |              9 |           2 |
 
-### Insight
+## Power BI Dashboard
 
-Sales Representative has the highest attrition rate and the lowest average monthly income among all job roles.
+An interactive HR Employee Attrition Dashboard was created in Power BI.
 
-This suggests that compensation may be one possible factor related to higher attrition in this role.
+### Power BI Work Completed
 
----
+* Imported raw HR employee data into Power BI
+* Cleaned and transformed data using Power Query
+* Removed unnecessary constant columns such as Over18 and StandardHours
+* Created a star schema data model
+* Built one-to-many relationships between fact and dimension tables
+* Created DAX measures for KPI cards and analysis
+* Added slicers for Department and Job Role
+* Created visual analysis for attrition by department, job role, overtime, age group, marital status, and gender
 
-# Key Findings
+## Power BI Data Model
 
-1. The overall attrition rate is **16.12%**.
-2. The Sales department has the highest department-level attrition rate at **20.63%**.
-3. Sales Representative has the highest job-role attrition rate at **39.76%**.
-4. Employees working overtime have a much higher attrition rate at **30.53%**.
-5. Employees under 30 have the highest age-group attrition rate at **27.91%**.
-6. Single employees have the highest marital-status attrition rate at **25.53%**.
-7. Sales Representative has the lowest average monthly income and the highest attrition rate.
-8. Gender does not appear to be a major attrition driver compared to job role, overtime, and age group.
+The original flat dataset was transformed into a star schema model.
 
----
+### Fact Table
 
-# Business Recommendations
+* Fact_Employee
 
-1. Review overtime policies because employees working overtime show much higher attrition.
-2. Focus retention efforts on Sales Representatives and Laboratory Technicians.
-3. Investigate compensation structure for Sales Representative roles.
-4. Create retention programs for employees under 30.
-5. Conduct employee feedback surveys in high-risk departments and job roles.
-6. Improve career growth and engagement programs for early-career employees.
-7. Monitor Sales department attrition closely because it has the highest department-level attrition rate.
+### Dimension Tables
 
----
+* Dim_Department
+* Dim_JobRole
+* Dim_Demographics
+* Dim_Work
 
-# Skills Demonstrated
+The dimension tables filter the fact table using one-to-many, single-direction relationships.
 
-* Excel Pivot Tables
-* Excel Dashboarding
-* SQL Aggregations
-* `CASE WHEN`
-* `GROUP BY`
-* CTEs
-* Window Functions
-* `RANK()`
-* HR Analytics
-* Business Insight Generation
+## DAX Measures Created
 
----
+### Total Employees
 
-# Project Files
+```DAX
+Total Employees = COUNTROWS(Fact_Employee)
+```
 
-* `HR_Attrition_Analysis_Final.xlsx`
-* `HR_Attrition_SQL_Analysis.ipynb`
-* `HR_Employee_Attrition_Analysis_Report.docx`
-* `HR_Employee_Attrition_Analysis_Report.pdf`
-* `README.md`
+### Employees Left
 
----
+```DAX
+Employees Left =
+CALCULATE(
+    COUNTROWS(Fact_Employee),
+    Fact_Employee[Attrition] = "Yes"
+)
+```
 
-# Project Conclusion
+### Active Employees
 
-This HR Employee Attrition Analysis project identified major employee groups with higher attrition risk.
+```DAX
+Active Employees =
+CALCULATE(
+    COUNTROWS(Fact_Employee),
+    Fact_Employee[Attrition] = "No"
+)
+```
 
-The strongest attrition factors found were job role, overtime, age group, marital status, and compensation level.
+### Attrition Rate
 
-Sales Representatives were the highest-risk group, with the highest attrition rate and the lowest average monthly income. Employees working overtime and employees under 30 also showed significantly higher attrition rates.
+```DAX
+Attrition Rate =
+DIVIDE(
+    [Employees Left],
+    [Total Employees],
+    0
+)
+```
 
-This project demonstrates how Excel and SQL can be used together to analyze HR data and generate actionable business recommendations.
+### Average Monthly Income
+
+```DAX
+Average Monthly Income =
+AVERAGE(Fact_Employee[MonthlyIncome])
+```
+
+### Average Age
+
+```DAX
+Average Age =
+AVERAGE(Fact_Employee[Age])
+```
+
+## Dashboard Preview
+
+![Power BI Dashboard](powerbi_dashboard.png)
+
+## Key Insights
+
+### 1. Overall Attrition
+
+The company has an overall attrition rate of 16.12%.
+
+### 2. Department-Level Insight
+
+Sales has the highest attrition rate at 20.63%, followed by Human Resources at 19.05%. Research & Development has the highest number of employees but a lower attrition rate of 13.84%.
+
+### 3. Job Role-Level Insight
+
+Sales Representative is the highest-risk job role, with an attrition rate of 39.76%. Laboratory Technician and Human Resources also show high attrition rates.
+
+### 4. Overtime Insight
+
+Employees working overtime have an attrition rate of 30.53%, compared to 10.44% for employees not working overtime. This shows that overtime is strongly associated with higher attrition.
+
+### 5. Age Group Insight
+
+Employees under 30 have the highest attrition rate at 27.91%. This suggests that younger employees may require better engagement, growth opportunities, or career support.
+
+### 6. Marital Status Insight
+
+Single employees have the highest attrition rate at 25.53%, compared with married and divorced employees.
+
+### 7. Gender Insight
+
+Male employees have a slightly higher attrition rate at 17.01%, compared with female employees at 14.80%. The difference is not very large.
+
+### 8. Salary and Attrition Insight
+
+Sales Representative had the highest attrition rate and also the lowest average monthly income among job roles. This suggests that compensation may be one possible factor behind higher attrition in this role.
+
+## Business Recommendations
+
+* Review overtime workload because employees working overtime have significantly higher attrition.
+* Focus retention efforts on Sales Representatives because this role has the highest attrition rate.
+* Review compensation and growth opportunities for low-income, high-attrition job roles.
+* Create early-career retention programs for employees under 30.
+* Monitor Sales department attrition closely because it has the highest department-level attrition rate.
+* Use HR dashboards regularly to track attrition trends and identify high-risk employee groups.
+
+## Project Files
+
+| File                                                     | Description                          |
+| -------------------------------------------------------- | ------------------------------------ |
+| HR_Attrition_Analysis_Final.xlsx                         | Excel analysis and dashboard         |
+| HR_Attrition_SQL_Analysis.ipynb                          | SQL analysis in Google Colab         |
+| HR Employee Attrition Analysis Dashboard.pbix            | Power BI dashboard file              |
+| powerbi_dashboard.png                                    | Power BI dashboard screenshot        |
+| HR_Employee_Attrition_PowerBI_Final_Report_Corrected.pdf | Final Power BI project report        |
+| HR_Employee_Attrition_Analysis_Report.pdf                | Earlier Excel and SQL project report |
+
+## Final Conclusion
+
+The analysis shows that attrition is mainly higher among Sales Representatives, overtime employees, employees under 30, and single employees. Overtime and job role appear to be strong factors related to employee attrition.
+
+This project demonstrates data cleaning, Excel analysis, SQL querying, Power BI data modeling, DAX measure creation, dashboard building, and business insight generation.
+
+## Project Status
+
+Completed.
+
