@@ -1,5 +1,16 @@
 # HR Employee Attrition Analysis
-Dataset Source: Kaggle - IBM HR Analytics Employee Attrition Dataset
+
+## Dataset Source / Credit
+
+The dataset used in this project was taken from Kaggle.
+
+**Dataset Name:** IBM HR Analytics Employee Attrition & Performance
+**Source:** Kaggle
+**Dataset Link:** https://www.kaggle.com/datasets/pavansubhasht/ibm-hr-analytics-attrition-dataset
+
+Credit goes to IBM data scientists and the original dataset uploader/owner on Kaggle. This project is created only for learning, portfolio building, and HR analytics practice.
+
+---
 
 ## Project Overview
 
@@ -7,9 +18,13 @@ This project analyzes employee attrition data to identify the key factors contri
 
 The project includes Excel-based analysis, SQL querying, Power BI data modeling, DAX measure creation, dashboard building, and business recommendations.
 
+---
+
 ## Business Problem
 
 Employee attrition can increase recruitment costs, reduce productivity, and create operational challenges. The objective of this project is to identify which employee groups have higher attrition and what factors may be contributing to employee turnover.
+
+---
 
 ## Tools Used
 
@@ -22,6 +37,8 @@ Employee attrition can increase recruitment costs, reduce productivity, and crea
 * DAX
 * GitHub
 
+---
+
 ## Dataset Overview
 
 The dataset contains employee-level HR information.
@@ -32,6 +49,8 @@ The dataset contains employee-level HR information.
 | Employees Left         |    237 |
 | Active Employees       |  1,233 |
 | Overall Attrition Rate | 16.12% |
+
+---
 
 ## Key Columns Used
 
@@ -49,6 +68,8 @@ The dataset contains employee-level HR information.
 * TotalWorkingYears
 * EmployeeNumber
 
+---
+
 ## Excel Analysis
 
 Excel was used for initial data analysis, validation, and dashboard creation.
@@ -61,16 +82,22 @@ Excel was used for initial data analysis, validation, and dashboard creation.
 * Created charts for attrition by department, job role, overtime, age group, marital status, and gender
 * Created an Excel dashboard to summarize HR attrition insights
 
+---
+
 ## SQL Analysis
 
-SQL was used to validate Excel results and perform deeper analysis on employee attrition patterns. The SQL analysis was completed using SQLite in Google Colab.
+SQL was used to validate Excel results and perform deeper analysis on employee attrition patterns.
+
+The SQL analysis was completed using SQLite in Google Colab.
+
+---
 
 ## SQL Queries Used
 
 ### 1. Overall Attrition Count
 
 ```sql
-SELECT
+SELECT 
     Attrition,
     COUNT(*) AS Employee_Count
 FROM hr
@@ -89,7 +116,7 @@ GROUP BY Attrition;
 ### 2. Attrition Rate by Department
 
 ```sql
-SELECT
+SELECT 
     Department,
     COUNT(*) AS Total_Employees,
     SUM(CASE WHEN Attrition = 'Yes' THEN 1 ELSE 0 END) AS Employees_Left,
@@ -115,7 +142,7 @@ ORDER BY Attrition_Rate DESC;
 ### 3. Attrition Rate by Job Role
 
 ```sql
-SELECT
+SELECT 
     JobRole,
     COUNT(*) AS Total_Employees,
     SUM(CASE WHEN Attrition = 'Yes' THEN 1 ELSE 0 END) AS Employees_Left,
@@ -147,7 +174,7 @@ ORDER BY Attrition_Rate DESC;
 ### 4. Attrition Rate by OverTime
 
 ```sql
-SELECT
+SELECT 
     OverTime,
     COUNT(*) AS Total_Employees,
     SUM(CASE WHEN Attrition = 'Yes' THEN 1 ELSE 0 END) AS Employees_Left,
@@ -172,27 +199,21 @@ ORDER BY Attrition_Rate DESC;
 ### 5. Attrition Rate by Age Group
 
 ```sql
-SELECT
-    CASE
+SELECT 
+    CASE 
         WHEN Age < 30 THEN 'Under 30'
         WHEN Age BETWEEN 30 AND 40 THEN '30-40'
         WHEN Age BETWEEN 41 AND 50 THEN '41-50'
         ELSE '50+'
     END AS Age_Group,
-
     COUNT(*) AS Total_Employees,
-
     SUM(CASE WHEN Attrition = 'Yes' THEN 1 ELSE 0 END) AS Employees_Left,
-
     ROUND(
         SUM(CASE WHEN Attrition = 'Yes' THEN 1 ELSE 0 END) * 100.0 / COUNT(*),
         2
     ) AS Attrition_Rate
-
 FROM hr
-
 GROUP BY Age_Group
-
 ORDER BY Attrition_Rate DESC;
 ```
 
@@ -210,7 +231,7 @@ ORDER BY Attrition_Rate DESC;
 ### 6. Attrition Rate by Marital Status
 
 ```sql
-SELECT
+SELECT 
     MaritalStatus,
     COUNT(*) AS Total_Employees,
     SUM(CASE WHEN Attrition = 'Yes' THEN 1 ELSE 0 END) AS Employees_Left,
@@ -236,9 +257,8 @@ ORDER BY Attrition_Rate DESC;
 ### 7. Job Role Attrition Ranking Using CTE and RANK()
 
 ```sql
-WITH jobrole_attrition AS
-(
-    SELECT
+WITH jobrole_attrition AS (
+    SELECT 
         JobRole,
         COUNT(*) AS Total_Employees,
         SUM(CASE WHEN Attrition = 'Yes' THEN 1 ELSE 0 END) AS Employees_Left,
@@ -249,8 +269,7 @@ WITH jobrole_attrition AS
     FROM hr
     GROUP BY JobRole
 )
-
-SELECT
+SELECT 
     JobRole,
     Total_Employees,
     Employees_Left,
@@ -280,7 +299,7 @@ FROM jobrole_attrition;
 ### 8. Attrition Rate by Gender
 
 ```sql
-SELECT
+SELECT 
     Gender,
     COUNT(*) AS Total_Employees,
     SUM(CASE WHEN Attrition = 'Yes' THEN 1 ELSE 0 END) AS Employees_Left,
@@ -305,9 +324,8 @@ ORDER BY Attrition_Rate DESC;
 ### 9. Department Attrition Ranking Using CTE and RANK()
 
 ```sql
-WITH department_attrition AS
-(
-    SELECT
+WITH department_attrition AS (
+    SELECT 
         Department,
         COUNT(*) AS Total_Employees,
         SUM(CASE WHEN Attrition = 'Yes' THEN 1 ELSE 0 END) AS Employees_Left,
@@ -318,8 +336,7 @@ WITH department_attrition AS
     FROM hr
     GROUP BY Department
 )
-
-SELECT
+SELECT 
     Department,
     Total_Employees,
     Employees_Left,
@@ -343,7 +360,7 @@ FROM department_attrition;
 ### 10. Top 10 Highest Paid Employees Using RANK()
 
 ```sql
-SELECT
+SELECT 
     EmployeeNumber,
     JobRole,
     Department,
@@ -376,7 +393,7 @@ LIMIT 10;
 ### 11. Average Monthly Income by Job Role
 
 ```sql
-SELECT
+SELECT 
     JobRole,
     COUNT(*) AS Total_Employees,
     ROUND(AVG(MonthlyIncome),2) AS Avg_Monthly_Income
@@ -404,17 +421,15 @@ ORDER BY Avg_Monthly_Income DESC;
 ### 12. Salary Ranking by Job Role Using CTE and RANK()
 
 ```sql
-WITH jobrole_salary AS
-(
-    SELECT
+WITH jobrole_salary AS (
+    SELECT 
         JobRole,
         COUNT(*) AS Total_Employees,
         ROUND(AVG(MonthlyIncome),2) AS Avg_Monthly_Income
     FROM hr
     GROUP BY JobRole
 )
-
-SELECT
+SELECT 
     JobRole,
     Total_Employees,
     Avg_Monthly_Income,
@@ -443,9 +458,8 @@ FROM jobrole_salary;
 ### 13. Combined Salary and Attrition Analysis Using CTE and RANK()
 
 ```sql
-WITH jobrole_summary AS
-(
-    SELECT
+WITH jobrole_summary AS (
+    SELECT 
         JobRole,
         COUNT(*) AS Total_Employees,
         SUM(CASE WHEN Attrition = 'Yes' THEN 1 ELSE 0 END) AS Employees_Left,
@@ -457,8 +471,7 @@ WITH jobrole_summary AS
     FROM hr
     GROUP BY JobRole
 )
-
-SELECT
+SELECT 
     JobRole,
     Total_Employees,
     Employees_Left,
@@ -488,6 +501,8 @@ ORDER BY Attrition_Rank;
 | Manager                   |             102 |              5 |          4.90% |              17,181.68 |              8 |           1 |
 | Research Director         |              80 |              2 |          2.50% |              16,033.55 |              9 |           2 |
 
+---
+
 ## Power BI Dashboard
 
 An interactive HR Employee Attrition Dashboard was created in Power BI.
@@ -502,6 +517,8 @@ An interactive HR Employee Attrition Dashboard was created in Power BI.
 * Created DAX measures for KPI cards and analysis
 * Added slicers for Department and Job Role
 * Created visual analysis for attrition by department, job role, overtime, age group, marital status, and gender
+
+---
 
 ## Power BI Data Model
 
@@ -519,6 +536,8 @@ The original flat dataset was transformed into a star schema model.
 * Dim_Work
 
 The dimension tables filter the fact table using one-to-many, single-direction relationships.
+
+---
 
 ## DAX Measures Created
 
@@ -573,9 +592,13 @@ Average Age =
 AVERAGE(Fact_Employee[Age])
 ```
 
+---
+
 ## Dashboard Preview
 
 ![Power BI Dashboard](powerbi_dashboard.png)
+
+---
 
 ## Key Insights
 
@@ -609,7 +632,11 @@ Male employees have a slightly higher attrition rate at 17.01%, compared with fe
 
 ### 8. Salary and Attrition Insight
 
-Sales Representative had the highest attrition rate and also the lowest average monthly income among job roles. This suggests that compensation may be one possible factor behind higher attrition in this role.
+Sales Representative had the highest attrition rate and also the lowest average monthly income among job roles.
+
+This suggests that compensation may be one possible factor behind higher attrition in this role.
+
+---
 
 ## Business Recommendations
 
@@ -620,31 +647,40 @@ Sales Representative had the highest attrition rate and also the lowest average 
 * Monitor Sales department attrition closely because it has the highest department-level attrition rate.
 * Use HR dashboards regularly to track attrition trends and identify high-risk employee groups.
 
+---
+
 ## Project Files
 
-| File                                                     | Description                          |
-| -------------------------------------------------------- | ------------------------------------ |
-| HR_Attrition_Analysis_Final.xlsx                         | Excel analysis and dashboard         |
-| HR_Attrition_SQL_Analysis.ipynb                          | SQL analysis in Google Colab         |
-| HR Employee Attrition Analysis Dashboard.pbix            | Power BI dashboard file              |
-| powerbi_dashboard.png                                    | Power BI dashboard screenshot        |
-| HR_Employee_Attrition_PowerBI_Final_Report_Corrected.pdf | Final Power BI project report        |
-| HR_Employee_Attrition_Analysis_Report.pdf                | Earlier Excel and SQL project report |
+| File                                             | Description                   |
+| ------------------------------------------------ | ----------------------------- |
+| `HR Employee Attrition Analysis Dashboard.pbix`  | Power BI dashboard file       |
+| `HR_Attrition_Analysis_Final.xlsx`               | Excel analysis and dashboard  |
+| `HR_Attrition_SQL_Analysis.ipynb`                | SQL analysis in Google Colab  |
+| `HR_Employee_Attrition_Analysis_Report.pdf`      | Excel and SQL project report  |
+| `HR_Employee_Attrition_PowerBI_Final_Report.pdf` | Final Power BI project report |
+| `powerbi_dashboard.png`                          | Power BI dashboard screenshot |
+| `README.md`                                      | Project documentation         |
+
+---
 
 ## Final Conclusion
 
-The analysis shows that attrition is mainly higher among Sales Representatives, overtime employees, employees under 30, and single employees. Overtime and job role appear to be strong factors related to employee attrition.
+The analysis shows that attrition is mainly higher among Sales Representatives, overtime employees, employees under 30, and single employees.
 
-This project demonstrates data cleaning, Excel analysis, SQL querying, Power BI data modeling, DAX measure creation, dashboard building, and business insight generation.
+Overtime and job role appear to be strong factors related to employee attrition. This project demonstrates data cleaning, Excel analysis, SQL querying, Power BI data modeling, DAX measure creation, dashboard building, and business insight generation.
+
+---
 
 ## Project Status
 
 Completed.
 
+---
+
 ## Author
 
 **Shubham Kumar Dubey**
-
 Aspiring Data Analyst skilled in Excel, SQL, Power BI, Power Query, DAX, and dashboard reporting.
 
-GitHub: `shubham-dubee`
+**GitHub:** https://github.com/shubham-dubee
+**LinkedIn:** https://www.linkedin.com/in/shubham-kumar-dubey-34b1b33b1
