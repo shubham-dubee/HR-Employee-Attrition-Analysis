@@ -1,17 +1,5 @@
 # HR Employee Attrition Analysis
 
-## Dataset Source / Credit
-
-The dataset used in this project was taken from Kaggle.
-
-**Dataset Name:** IBM HR Analytics Employee Attrition & Performance
-**Source:** Kaggle
-**Dataset Link:** https://www.kaggle.com/datasets/pavansubhasht/ibm-hr-analytics-attrition-dataset
-
-Credit goes to IBM data scientists and the original dataset uploader/owner on Kaggle. This project is created only for learning, portfolio building, and HR analytics practice.
-
----
-
 ## Project Overview
 
 This project analyzes employee attrition data to identify the key factors contributing to employee turnover. The analysis was completed using Microsoft Excel, SQL, Google Colab, and Power BI.
@@ -42,6 +30,15 @@ Employee attrition can increase recruitment costs, reduce productivity, and crea
 ## Dataset Overview
 
 The dataset contains employee-level HR information.
+
+## Dataset Source / Credit
+
+The dataset used in this project was taken from Kaggle.
+
+**Dataset Name:** [IBM HR Analytics Employee Attrition & Performance](https://www.kaggle.com/datasets/pavansubhasht/ibm-hr-analytics-attrition-dataset)
+**Source:** Kaggle
+
+Credit goes to IBM data scientists and the original dataset uploader/owner on Kaggle. This project is created only for learning, portfolio building, and HR analytics practice.
 
 | Metric                 |  Value |
 | ---------------------- | -----: |
@@ -651,15 +648,15 @@ This suggests that compensation may be one possible factor behind higher attriti
 
 ## Project Files
 
-| File                                             | Description                   |
-| ------------------------------------------------ | ----------------------------- |
-| `HR Employee Attrition Analysis Dashboard.pbix`  | Power BI dashboard file       |
-| `HR_Attrition_Analysis_Final.xlsx`               | Excel analysis and dashboard  |
-| `HR_Attrition_SQL_Analysis.ipynb`                | SQL analysis in Google Colab  |
-| `HR_Employee_Attrition_Analysis_Report.pdf`      | Excel and SQL project report  |
-| `HR_Employee_Attrition_PowerBI_Final_Report.pdf` | Final Power BI project report |
-| `powerbi_dashboard.png`                          | Power BI dashboard screenshot |
-| `README.md`                                      | Project documentation         |
+| File                                                                                                   | Description                   |
+| ------------------------------------------------------------------------------------------------------ | ----------------------------- |
+| [HR Employee Attrition Analysis Dashboard.pbix](HR%20Employee%20Attrition%20Analysis%20Dashboard.pbix) | Power BI dashboard file       |
+| [HR_Attrition_Analysis_Final.xlsx](HR_Attrition_Analysis_Final.xlsx)                                   | Excel analysis and dashboard  |
+| [HR_Attrition_SQL_Analysis.ipynb](HR_Attrition_SQL_Analysis.ipynb)                                     | SQL analysis in Google Colab  |
+| [HR_Employee_Attrition_Analysis_Report.pdf](HR_Employee_Attrition_Analysis_Report.pdf)                 | Excel and SQL project report  |
+| [HR_Employee_Attrition_PowerBI_Final_Report.pdf](HR_Employee_Attrition_PowerBI_Final_Report.pdf)       | Final Power BI project report |
+| [powerbi_dashboard.png](powerbi_dashboard.png)                                                         | Power BI dashboard screenshot |
+| [README.md](README.md)                                                                                 | Project documentation         |
 
 ---
 
@@ -682,5 +679,5 @@ Completed.
 **Shubham Kumar Dubey**
 Aspiring Data Analyst skilled in Excel, SQL, Power BI, Power Query, DAX, and dashboard reporting.
 
-**GitHub:** https://github.com/shubham-dubee
-**LinkedIn:** https://www.linkedin.com/in/shubham-kumar-dubey-34b1b33b1
+**GitHub:** [shubham-dubee](https://github.com/shubham-dubee)
+**LinkedIn:** [shubham-kumar-dubey](https://www.linkedin.com/in/shubham-kumar-dubey-34b1b33b1)
